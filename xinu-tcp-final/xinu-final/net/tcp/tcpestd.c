@@ -25,8 +25,8 @@ int32	tcpestd(
 	}
 
 	/* Transmit a response immediately */
-
+        //kprintf("tcpestd: entro a tcpxmit\n");
 	tcpxmit (tcbptr, tcbptr->tcb_snext);
-
+        //kprintf("tcpestd: salgo de tcpxmit\n");
 	return OK;
 }

@@ -20,8 +20,9 @@ process	tcp_out(void)
 
 		/* Extract the TCB pointer from the message */
 		tcbptr = TCBCMD_TCB(msg);
-		kprintf("%d\n",tcbptr);
-
+		kprintf("%d \n",tcbptr);
+                
+                
 		/* Obtain exclusive use of TCP */
 		wait (Tcp.tcpmutex);
 
@@ -44,8 +45,10 @@ process	tcp_out(void)
 		/* Send data */
 
 		case TCBC_SEND:
-/*DEBUG*/   //kprintf("tcp_out: Command SEND\n");
+/*DEBUG*/               kprintf("tcp_out: tcpxmit ANTES\n");
+                        
 			tcpxmit (tcbptr, tcbptr->tcb_snext);
+			 kprintf("tcp_out: tcpxmit LISTO\n");
 			break;
 
 		/* Send a delayed ACK */
@@ -64,7 +67,7 @@ process	tcp_out(void)
 			tcbptr->tcb_cwnd = tcbptr->tcb_mss;
 			tcbptr->tcb_dupacks = 0;
 			tcbptr->tcb_rto <<= 1;
-			if (++tcbptr->tcb_rtocount > TCP_MAXRTO)
+			if (tcbptr->tcb_rtocount++ > TCP_MAXRTO) //++tcbptr->tcb_rtocount > TCP_MAXRTO
 				tcpabort (tcbptr);
 			else
 				tcpxmit (tcbptr, tcbptr->tcb_suna);
@@ -75,7 +78,7 @@ process	tcp_out(void)
 		case TCBC_EXPIRE:
 /*DEBUG*/ //kprintf("tcp_out: Command TCB EXPIRE\n");
 			tcbptr->tcb_state = TCB_CLOSED;
-			tcbunref (tcbptr);
+			//tcbunref (tcbptr);
 			break;
 
 		/* Unknown command (should not happen) */

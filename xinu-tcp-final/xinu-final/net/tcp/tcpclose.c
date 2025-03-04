@@ -58,8 +58,8 @@ int32	tcp_close(
 		return OK;
 	}
 
-	/* Handle processes waiting to read or write */
-
+	/* Handle processes waiting to read or write  (caso client gnu.msn.by 80 /)*/
+        kprintf("tcpclose.... \n");
 	ptcb->tcb_flags |= TCBF_RDDONE|TCBF_WRDONE;
 	ptcb->tcb_sfin = ptcb->tcb_suna + ptcb->tcb_sblen;
 

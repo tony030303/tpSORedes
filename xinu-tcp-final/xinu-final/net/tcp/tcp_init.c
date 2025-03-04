@@ -44,8 +44,8 @@ int32	tcp_init(void)
 	Tcp.tcpnextport = 33000;
 
 	Tcp.tcpcmdq = mqcreate (10);
-
+        kprintf("tcp_init: entro a tcp_out\n");
 	resume(create(tcp_out, 8192, 500, "tcp_out", 0, NULL));
-
+        kprintf("tcp_init: salgo de tcp_out\n");
 	return OK;
 }

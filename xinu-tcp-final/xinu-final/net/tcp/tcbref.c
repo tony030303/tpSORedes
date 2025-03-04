@@ -22,8 +22,9 @@ void	tcbref(
 void	tcbunref(
 	  struct tcb	*ptcb		/* Ptr to a TCB			*/
        )
-{
-	if (--ptcb->tcb_ref <= 0) {
+{       
+        ptcb -> tcb_ref--; ///cambio
+	if (ptcb->tcb_ref <= 0) {
 		freemem ((char *)ptcb->tcb_rbuf, ptcb->tcb_rbsize);
 		freemem ((char *)ptcb->tcb_sbuf, ptcb->tcb_sbsize);
 		ptcb->tcb_state = TCB_FREE;

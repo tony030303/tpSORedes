@@ -102,7 +102,9 @@ void	tcp_in(
 
 	/* Process the segment according to the state of the TCB */
 
+	//kprintf("tcp_in: entro a tcpdisp\n");
 	tcpdisp (&tcbtab[entry], pkt);
+	//kprintf("tcp_in: salgo de tcpdisp\n");
 	signal (tcbtab[entry].tcb_mutex);
 	freebuf ((char *)pkt);
 

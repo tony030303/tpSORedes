@@ -62,8 +62,8 @@ void	tcpsendseg(
 		tcbptr->tcb_rttseq = pkt->net_tcpseq;
 		tcbptr->tcb_rtttime = (int)ctr1000;
 	}
-
+        kprintf("tcpsendseg: entro ip_send\n");
 	ip_send(pkt);
-
+        kprintf("tcpsendseg: salgo ip_send\n");
 	return;
 }

@@ -46,7 +46,7 @@ typedef	int32	tcpseq;			/* TCP sequence number type	*/
 
 #define TCP_ETHMSS	1460
 
-#define TCP_ACKDELAY	200		/* ACK delay in millissconds	*/
+#define TCP_ACKDELAY	100 //200		/* ACK delay in millissconds	*/
 
 #define TCP_MAXRTO	5		/* Maximum round-trip timeout	*/
 

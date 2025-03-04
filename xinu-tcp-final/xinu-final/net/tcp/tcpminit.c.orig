@@ -30,7 +30,8 @@ int32	tcpminit(
 		mqinit();
 	}
 	Tcp.tcpcmdq = mqcreate (10);
-
+        kprintf("tcp_minit: entro a tcp_out\n");
 	resume (create ((int *)tcp_out, 512, 80, "tcp_out", 0, NULL));
+	kprintf("tcp_minit: salgo de tcp_out\n");
 	return OK;
 }

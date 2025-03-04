@@ -88,8 +88,11 @@ int32	tcpxmit(
 		}
 
 		/* Send a segment */
+		kprintf("tcpxmit: antes del tcpsendseg\n");
 		tcpsendseg (tcbptr, offset, len, code);
 		seq = seq + len + codelen;
+		
+		kprintf("tcpxmit: después del tcpsendseg\n");
 
 		if (SEQ_CMP(tcbptr->tcb_snext, seq) < 0) {
 			tcbptr->tcb_snext = seq;

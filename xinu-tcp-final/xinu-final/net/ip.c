@@ -66,6 +66,7 @@ void	ip_in(
 	/* Deliver 255.255.255.255 to local stack */
 
 	if (pktptr->net_ipdst == IP_BCAST) {
+	        kprintf("ESTOY BROADCAST___IP_0\n");
 		ip_local(pktptr);
 		return;
 	}
@@ -75,9 +76,11 @@ void	ip_in(
 
 	if (!NetData.ipvalid) {
 		if (pktptr->net_ipproto == IP_UDP) {
+		        kprintf("ESTOY if___IP_1\n");
 			ip_local(pktptr);
 			return;
 		} else {
+		        kprintf("ESTOY else___IP_1\n");
 			freebuf((char *)pktptr);
 			return;
 		}
@@ -88,10 +91,11 @@ void	ip_in(
 	if ( (pktptr->net_ipdst == NetData.ipucast) ||
 	     (pktptr->net_ipdst == NetData.ipbcast) ||
 	     (pktptr->net_ipdst == IP_BCAST)  ) {
+	        //kprintf("ESTOY IF___IP_2\n");
 		ip_local(pktptr);
 		return;
 	} else {
-
+                //kprintf("ESTOY IF___IP_3\n");
 		/* Drop the packet */
 		freebuf((char *)pktptr);
 		return;
@@ -143,7 +147,9 @@ status	ip_send(
 	     (dest == NetData.ipbcast) ) {
 		memcpy(pktptr->net_ethdst, NetData.ethbcast,
 							ETH_ADDR_LEN);
+		kprintf("Estoy en ip_send (DESt-BCAST), INVOCO A IP_OUT\n");					
 		retval = ip_out(pktptr);
+		kprintf("Estoy en ip_send (DESt-BCAST), SALGO DE IP_OUT\n");
 		restore(mask);
 		return retval;
 	}
@@ -182,8 +188,9 @@ status	ip_send(
 	}
 
 	/* Send the packet */
-
+        kprintf("ip_send: INVOCO A IP_OUT\n");
 	retval = ip_out(pktptr);
+	kprintf("ip_send: SALGO DE IP_OUT\n");
 	restore(mask);
 	return retval;
 }
@@ -206,7 +213,9 @@ void	ip_local(
 		return;
 
 		case IP_TCP:
+		//kprintf("ip_local: entro a tcp_in\n");
 	    	tcp_in(pktptr);
+	    	//kprintf("ip_local: salgo de tcp_in\n");
 		return;
 
 	    case IP_ICMP:
@@ -264,13 +273,15 @@ status	ip_out(
 
 		case IP_TCP:
 	    	tcp_hton(pktptr);
+	    	        kprintf("IP_OUT: entro tcpcksum\n");
 			cksum = tcpcksum(pktptr);
 			pktptr->net_tcpcksum = htons(cksum) & 0xffff;
+			kprintf("IP_OUT: salgo tcpcksum\n");
 			//https://gist.github.com/david-hoze/0c7021434796997a4ca42d7731a7073a
 			//pktptr->net_tcpcksum = 0x0998;
 			break;
 
-	    default:
+	    default:    kprintf("ip_out: caso default :(");
 			break;
 	}
 
@@ -447,8 +458,10 @@ process	ipout(void)
 		}
 
 		/* Use ipout to Convert byte order and send */
-
+                
+                kprintf("ipout: antes de ip_out\n");
 		ip_out(pktptr);
+		kprintf("ipout: despues de ip_out\n");
 	}
 }
 

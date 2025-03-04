@@ -8,7 +8,9 @@ process main(void)
 	gui_init();
 
 	//nsaddr = 0x800a0c10;
+	kprintf("main: entro a tcp_init\n");
 	tcp_init();
+	kprintf("main:salgo de tcp_init\n");
 
 	recvclr();
 	resume(create(shell, 8192, 50, "shell", 1, CONSOLE));

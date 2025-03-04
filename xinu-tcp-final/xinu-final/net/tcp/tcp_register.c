@@ -137,6 +137,7 @@ int32	tcp_register (
 
 		while (tcbptr->tcb_state != TCB_CLOSED
 		       && tcbptr->tcb_state != TCB_ESTD) {
+		       
 			tcbptr->tcb_readers++;
 			signal (tcbptr->tcb_mutex);
 			wait (tcbptr->tcb_rblock);
