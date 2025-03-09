@@ -67,7 +67,8 @@ process	tcp_out(void)
 			tcbptr->tcb_cwnd = tcbptr->tcb_mss;
 			tcbptr->tcb_dupacks = 0;
 			tcbptr->tcb_rto <<= 1;
-			if (tcbptr->tcb_rtocount++ > TCP_MAXRTO) //++tcbptr->tcb_rtocount > TCP_MAXRTO
+			tcbptr ->tcb_rtocount++;
+			if (tcbptr->tcb_rtocount > TCP_MAXRTO) //++tcbptr->tcb_rtocount > TCP_MAXRTO
 				tcpabort (tcbptr);
 			else
 				tcpxmit (tcbptr, tcbptr->tcb_suna);
@@ -78,7 +79,7 @@ process	tcp_out(void)
 		case TCBC_EXPIRE:
 /*DEBUG*/ //kprintf("tcp_out: Command TCB EXPIRE\n");
 			tcbptr->tcb_state = TCB_CLOSED;
-			//tcbunref (tcbptr);
+			//tcbunref (tcbptr); 
 			break;
 
 		/* Unknown command (should not happen) */

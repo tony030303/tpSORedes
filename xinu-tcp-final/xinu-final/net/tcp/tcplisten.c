@@ -75,6 +75,8 @@ int32	tcplisten(
 
 	tcbptr->tcb_qlen++;
 	if (tcbptr->tcb_readers > 0) {
+	
+	        kprintf("tcplisten: liberamos tcb_rblock\n");
 		tcbptr->tcb_readers--;
 		signal (tcbptr->tcb_rblock);
 	}

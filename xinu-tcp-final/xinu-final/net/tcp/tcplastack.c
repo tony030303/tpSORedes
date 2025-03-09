@@ -12,7 +12,7 @@ int32	tcplastack(
 	)
 {
 	/* See if this ACK covers the FIN */
-
+        //kprintf("LASTACK\n");
 	if (SEQ_CMP(tcbptr->tcb_suna, tcbptr->tcb_sfin) > 0) {
 
 		/* There must be an RTO pending at this point */
@@ -22,10 +22,11 @@ int32	tcplastack(
 		/* Mark the TCB closed */
 
 		tcbptr->tcb_state = TCB_CLOSED;
-
+                //kprintf("x?\n");
 		/* Reduce the reference count */
-
+                //kprintf("lastACK:wasme\n");
 		tcbunref (tcbptr);
+		//kprintf("Astadofinal:%d\n",tcbptr->tcb_state);
 	}
 	return OK;
 }

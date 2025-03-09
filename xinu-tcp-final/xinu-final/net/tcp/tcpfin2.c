@@ -21,8 +21,9 @@ int32	tcpfin2(
 		tcptmset (TCP_MSL << 1, tcbptr, TCBC_EXPIRE);
 		tcbptr->tcb_state = TCB_TWAIT;
 	}
-
+	
+        kprintf("tcpfin2\n");
 	tcpxmit (tcbptr, tcbptr->tcb_snext);
-
+        kprintf("tcpfin2:estado:%d\n",tcbptr->tcb_state );
 	return OK;
 }

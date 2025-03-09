@@ -66,7 +66,7 @@ void	ip_in(
 	/* Deliver 255.255.255.255 to local stack */
 
 	if (pktptr->net_ipdst == IP_BCAST) {
-	        kprintf("ESTOY BROADCAST___IP_0\n");
+	        //kprintf("ESTOY BROADCAST___IP_0\n");
 		ip_local(pktptr);
 		return;
 	}
@@ -76,11 +76,11 @@ void	ip_in(
 
 	if (!NetData.ipvalid) {
 		if (pktptr->net_ipproto == IP_UDP) {
-		        kprintf("ESTOY if___IP_1\n");
+		        //kprintf("ESTOY if___IP_1\n");
 			ip_local(pktptr);
 			return;
 		} else {
-		        kprintf("ESTOY else___IP_1\n");
+		        //kprintf("ESTOY else___IP_1\n");
 			freebuf((char *)pktptr);
 			return;
 		}
@@ -147,9 +147,9 @@ status	ip_send(
 	     (dest == NetData.ipbcast) ) {
 		memcpy(pktptr->net_ethdst, NetData.ethbcast,
 							ETH_ADDR_LEN);
-		kprintf("Estoy en ip_send (DESt-BCAST), INVOCO A IP_OUT\n");					
+		//kprintf("Estoy en ip_send (DESt-BCAST), INVOCO A IP_OUT\n");					
 		retval = ip_out(pktptr);
-		kprintf("Estoy en ip_send (DESt-BCAST), SALGO DE IP_OUT\n");
+		//kprintf("Estoy en ip_send (DESt-BCAST), SALGO DE IP_OUT\n");
 		restore(mask);
 		return retval;
 	}
@@ -398,11 +398,12 @@ process	ipout(void)
 	while(1) {
 
 		/* Obtain next packet from the IP output queue */
-
+                kprintf("En While - ipout\n");
 		wait(ipqptr->iqsem);
 		pktptr = ipqptr->iqbuf[ipqptr->iqhead++];
 		if (ipqptr->iqhead >= IP_OQSIZ) {
 			ipqptr->iqhead= 0;
+			//kprintf("paso por if1 - ipout\n");
 		}
 
 		/* Fill in the MAC source address */
@@ -426,6 +427,7 @@ process	ipout(void)
 		/* Check whether destination is the local computer */
 
 		if (destip == NetData.ipucast) {
+		        //kprintf("En destip if2 - ipout\n");
 			ip_local(pktptr);
 			continue;
 		}
@@ -433,26 +435,28 @@ process	ipout(void)
 		/* Check whether destination is on the local net */
 
 		if ( (destip & NetData.ipmask) == NetData.ipprefix) {
-
+                         //kprintf("En destip if3 - ipout\n");
 			/* Next hop is the destination itself */
 
 			nxthop = destip;
 		} else {
-
+                        //kprintf("En destip else3 - ipout\n");
 			/* Next hop is default router on the network */
 
 			nxthop = NetData.iprouter;
 		}
 
 		if (nxthop == 0) {  /* Dest. invalid or no default route*/
+			//kprintf("En if4 - ipout\n");
 			freebuf((char *)pktptr);
 			continue;
 		}
 
 		/* Use ARP to resolve next-hop address */
-
+                //kprintf("Pasamos 4ifs - ipout\n");
 		retval = arp_resolve(nxthop, pktptr->net_ethdst);
 		if (retval != OK) {
+		         //kprintf("En if5 - ipout\n");
 			freebuf((char *)pktptr);
 			continue;
 		}
@@ -462,6 +466,7 @@ process	ipout(void)
                 kprintf("ipout: antes de ip_out\n");
 		ip_out(pktptr);
 		kprintf("ipout: despues de ip_out\n");
+		
 	}
 }
 
@@ -495,6 +500,7 @@ status	ip_enqueue(
 		iptr->iqtail = 0;
 	}
 	signal(iptr->iqsem);
+	//kprintf("liberado iqsem - ip_enqueue\n");
 	restore(mask);
 	return OK;	
 }

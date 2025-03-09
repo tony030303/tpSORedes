@@ -35,9 +35,9 @@
 /* Commands that can be added to a message queue */
 
 #define TCBC_SEND	1		/* Data is ready to send	*/
-#define TCBC_DELACK	2 //2		/* Schedule a delayed ACK	*/
+#define TCBC_DELACK	2 		/* Schedule a delayed ACK	*/
 #define TCBC_RTO	3		/* Round-trip Timer expires	*/
-#define TCBC_EXPIRE	4 //4		/* TCB expires			*/
+#define TCBC_EXPIRE	4 		/* TCB expires			*/
 
 #define TCPW_READERS	0x1
 #define TCPW_WRITERS	0x2

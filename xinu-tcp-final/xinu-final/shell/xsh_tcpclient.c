@@ -28,6 +28,7 @@ shellcmd xsh_tcpclient(int nargs, char *args[])
 
     // Conexión TCP
     sock = tcp_register(ipaddr, port, 1);
+    
     if (sock == SYSERR) {
         printf("Fallo\n");
         return 1;

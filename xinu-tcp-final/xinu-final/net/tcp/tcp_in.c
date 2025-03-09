@@ -17,7 +17,8 @@ void	tcp_in(
 	int32	entry;
 	uint16	len;			/* Length of the segment	*/
 	struct	tcb	*tcbptr;	/* Ptr to TCB entry		*/
-
+        
+        //kprintf("tcp_in: parada 1\n");
 	/* Get pointers to Ethernet header, IP header and TCP header */
 
 	len = pkt->net_iplen;
@@ -29,6 +30,7 @@ void	tcp_in(
 		freebuf ((char *)pkt);
 		return;
 	}
+	//kprintf("tcp_in: parada 2\n");
 /*DEBUG*/ //kprintf("\nIN: seq %x, ackseq %x\n", pkt->net_tcpseq, pkt->net_tcpack);
 	//pdumph(pkt);
 
@@ -38,14 +40,21 @@ void	tcp_in(
 		freebuf ((char *)pkt);
 		return;
 	}
+	//kprintf("tcp_in: parada 3\n");
 
 	partial = complete = -1;
 
 	/* Insure exclusive use */
 
 	wait (Tcp.tcpmutex);
+	/*DEBUG*/ //kprintf("IN: ipsrc %08x, ipdst %08x, sport %u, dport %u\n",
+  //  pkt->net_ipsrc, pkt->net_ipdst, pkt->net_tcpsport, pkt->net_tcpdport);
+
 	for (i = 0; i < Ntcp; i++) {
-		tcbptr = &tcbtab[i];
+	        tcbptr = &tcbtab[i];
+		 /*DEBUG*/ /*kprintf("TCB[%d]: state %d, lip %08x, rip %08x, lport %u, rport %u\n",
+       i, tcbptr->tcb_state, tcbptr->tcb_lip, tcbptr->tcb_rip, tcbptr->tcb_lport, tcbptr->tcb_rport);*/
+
 		if (tcbptr->tcb_state == TCB_FREE) {
 
 			/* Skip unused emtries */
@@ -72,13 +81,14 @@ void	tcp_in(
 			    && pkt->net_ipdst == tcbptr->tcb_lip
 			    && pkt->net_tcpsport == tcbptr->tcb_rport
 			    && pkt->net_tcpdport == tcbptr->tcb_lport) {
-				complete = i;
+				complete = i; //complete = i
 				break;
 			}
 			continue;
 		}
 	}
-
+	//kprintf("tcp_in: parada 4\n");
+        //kprintf("complete = %d , partial = %d\n" , complete, partial);
 	/* See if full match found, partial match found, or none */
 
 	if (complete != -1) {
@@ -86,24 +96,34 @@ void	tcp_in(
 	} else if (partial != -1) {
 		entry = partial;
 	} else {
-
+                //tercera ejecución entra acà
 		/* No match - send a reset and drop the packet */
-
+                //kprintf("NOMATCH!\n");
 		signal (Tcp.tcpmutex);
+		//kprintf("tcp_in: entro tcpreset\n");
 		tcpreset (pkt);
+		//kprintf("SUPERA2\n");
+		//kprintf("tcp_in: salgo tcpreset\n");
 		freebuf ((char *)pkt);
+		//kprintf("FREBU!\n");
+		
 		return;
 	}
 
 	/* Wait on mutex for TCB and release global mutex */
-
+        //kprintf("tcp_in:acceso tcb_mutex %d\n" , entry);
 	wait (tcbtab[entry].tcb_mutex);
 	signal (Tcp.tcpmutex);
-
+        //kprintf("tcp_in: paso de acá\n");
 	/* Process the segment according to the state of the TCB */
 
 	//kprintf("tcp_in: entro a tcpdisp\n");
 	tcpdisp (&tcbtab[entry], pkt);
+	
+
+	
+	
+	
 	//kprintf("tcp_in: salgo de tcpdisp\n");
 	signal (tcbtab[entry].tcb_mutex);
 	freebuf ((char *)pkt);

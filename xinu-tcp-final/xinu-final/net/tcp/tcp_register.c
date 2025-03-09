@@ -62,9 +62,11 @@ int32	tcp_register (
 	}
 */
 	/* Obtain exclusive use, find free TCB, and clear it */
-
+        //kprintf("tcp_reg: esperando tcpmutex\n");
 	wait (Tcp.tcpmutex);
+	//kprintf("tcp_reg: tomo tcpmutex\n");
 	for (i = 0; i < Ntcp; i++) {
+	        kprintf("TCB[%d]: %d\n", i, tcbtab[i].tcb_state);
 		if (tcbtab[i].tcb_state == TCB_FREE)
 			break;
 	}
@@ -75,11 +77,11 @@ int32	tcp_register (
 	tcbptr = &tcbtab[i];
 	tcbclear (tcbptr);
 	slot = i;
-
+       // kprintf("tcp_reg: parada 1\n");
 	/* Either set up active or passive endpoint */
 
 	if (active) {
-
+                 kprintf("tcp_reg: active connection\n");
 		/* Obtain local IP address from interface */
 
 		lip = NetData.ipucast;
@@ -101,7 +103,7 @@ int32	tcp_register (
 			return SYSERR;
 		}
 		tcbptr->tcb_sbsize = 65535;
-
+                //kprintf("tcp_reg: parada 2\n");
 		/* The following will always succeed because	*/
 		/*   the iteration covers at least Ntcp+1 port	*/
 		/*   numbers and there are only Ntcp slots	*/
@@ -121,6 +123,7 @@ int32	tcp_register (
 		/* Assign next local port */
 
 		tcbptr->tcb_lport = Tcp.tcpnextport++;
+		//kprintf("tcp_reg: parada 3\n");
 		if (Tcp.tcpnextport > 63000) {
 			Tcp.tcpnextport = 33000;
 		}
@@ -128,21 +131,25 @@ int32	tcp_register (
 		tcbptr->tcb_rport = port;
 		tcbptr->tcb_snext = tcbptr->tcb_suna = tcbptr->tcb_ssyn = 1;
 		tcbptr->tcb_state = TCB_SYNSENT;
+		//kprintf("tcp_reg: parada 4\n");
 		wait (tcbptr->tcb_mutex);
 		tcbref (tcbptr);
 		signal (Tcp.tcpmutex);
 
 		tcbref (tcbptr);
 		mqsend (Tcp.tcpcmdq, TCBCMD(tcbptr, TCBC_SEND));
-
+                //kprintf("tcp_reg: parada 5\n");
 		while (tcbptr->tcb_state != TCB_CLOSED
 		       && tcbptr->tcb_state != TCB_ESTD) {
 		       
 			tcbptr->tcb_readers++;
+			kprintf("estado%d\n",tcbptr->tcb_state);
 			signal (tcbptr->tcb_mutex);
-			wait (tcbptr->tcb_rblock);
+			//kprintf("tcp_reg: espera tcb_rblock\n");
+			wait (tcbptr->tcb_rblock); //EL ERROR OCURRE ACÁ, NO AVANZA MÁS
+			//kprintf("tcp_reg: espera tcb_mutex\n");
 			wait (tcbptr->tcb_mutex);
-			kprintf("PASO BIEN DE ACA\n");
+			//kprintf("PASO BIEN DE ACA\n");
 
 		}
 
@@ -153,6 +160,7 @@ int32	tcp_register (
 		return (state == TCB_ESTD ? slot : SYSERR);
 
 	} else {  /* Passive connection */
+	        kprintf("tcp_reg: pasive connection\n");
 		for (i = 0; i < Ntcp; i++) {
 			if (tcbtab[i].tcb_state == TCB_LISTEN
 			    && tcbtab[i].tcb_lip == ip

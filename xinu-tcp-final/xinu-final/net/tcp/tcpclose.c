@@ -42,6 +42,7 @@ int32	tcp_close(
 			tcp_close(child);
 		}
 		ptcb->tcb_state = TCB_CLOSED;
+		
 		tcbunref (ptcb);
 		return OK;
 	}
@@ -54,6 +55,7 @@ int32	tcp_close(
 
 		tcptmdel (ptcb, TCBC_RTO);
 		ptcb->tcb_state = TCB_CLOSED;
+		
 		tcbunref (ptcb);
 		return OK;
 	}
@@ -69,6 +71,7 @@ int32	tcp_close(
 
 	/* mqunref is not called here, because did not call mqref	*/
 	/*	in mqsend						*/
+	//kprintf("estadofinal:%d\n",ptcb->tcb_state);
 	signal (ptcb->tcb_mutex);
 
 	return OK;

@@ -58,7 +58,8 @@ void	tcpdisp(
 	/* Obtain the state from the TCB */
 
 	state = tcbptr->tcb_state;
-
+        kprintf("tcpdisp-ESTADO=%d\n", state);
+        
 
 	/* Handle a reset */
 
