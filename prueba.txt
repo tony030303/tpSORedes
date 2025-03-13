@@ -1,0 +1,162 @@
+No.     Time           Source                Destination           Protocol Length Info
+      1 0.000000000    192.168.122.204       255.255.255.255       DHCP     292    DHCP Discover - Transaction ID 0x9d005452
+
+Frame 1: 292 bytes on wire (2336 bits), 292 bytes captured (2336 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 255.255.255.255
+User Datagram Protocol, Src Port: 68, Dst Port: 67
+Dynamic Host Configuration Protocol (Discover)
+
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.001729544    192.168.122.1         192.168.122.204       DHCP     342    DHCP Offer    - Transaction ID 0x9d005452
+
+Frame 2: 342 bytes on wire (2736 bits), 342 bytes captured (2736 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 192.168.122.1, Dst: 192.168.122.204
+User Datagram Protocol, Src Port: 67, Dst Port: 68
+Dynamic Host Configuration Protocol (Offer)
+
+No.     Time           Source                Destination           Protocol Length Info
+      3 0.002998931    192.168.122.204       255.255.255.255       DHCP     300    DHCP Request  - Transaction ID 0x9d005452
+
+Frame 3: 300 bytes on wire (2400 bits), 300 bytes captured (2400 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: Broadcast (ff:ff:ff:ff:ff:ff)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 255.255.255.255
+User Datagram Protocol, Src Port: 68, Dst Port: 67
+Dynamic Host Configuration Protocol (Request)
+
+No.     Time           Source                Destination           Protocol Length Info
+      4 0.003770639    192.168.122.1         192.168.122.204       DHCP     342    DHCP ACK      - Transaction ID 0x9d005452
+
+Frame 4: 342 bytes on wire (2736 bits), 342 bytes captured (2736 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 192.168.122.1, Dst: 192.168.122.204
+User Datagram Protocol, Src Port: 67, Dst Port: 68
+Dynamic Host Configuration Protocol (ACK)
+
+No.     Time           Source                Destination           Protocol Length Info
+      5 0.007284757    192.168.122.204       192.168.122.1         DNS      70     Standard query 0x0f00 A gnu.msn.by
+
+Frame 5: 70 bytes on wire (560 bits), 70 bytes captured (560 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 192.168.122.1
+User Datagram Protocol, Src Port: 51525, Dst Port: 53
+Domain Name System (query)
+
+No.     Time           Source                Destination           Protocol Length Info
+      6 0.012644788    192.168.122.1         192.168.122.204       DNS      86     Standard query response 0x0f00 A gnu.msn.by A 184.171.244.140
+
+Frame 6: 86 bytes on wire (688 bits), 86 bytes captured (688 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 192.168.122.1, Dst: 192.168.122.204
+User Datagram Protocol, Src Port: 53, Dst Port: 51525
+Domain Name System (response)
+
+No.     Time           Source                Destination           Protocol Length Info
+      7 0.095598467    192.168.122.204       184.171.244.140       TCP      58     33000 → 80 [SYN] Seq=0 Win=65535 Len=0 MSS=1450
+
+Frame 7: 58 bytes on wire (464 bits), 58 bytes captured (464 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 184.171.244.140
+Transmission Control Protocol, Src Port: 33000, Dst Port: 80, Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      8 0.296605616    184.171.244.140       192.168.122.204       TCP      58     80 → 33000 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460
+
+Frame 8: 58 bytes on wire (464 bits), 58 bytes captured (464 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 184.171.244.140, Dst: 192.168.122.204
+Transmission Control Protocol, Src Port: 80, Dst Port: 33000, Seq: 0, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      9 0.332408278    192.168.122.204       184.171.244.140       IPv4     34     
+
+Frame 9: 34 bytes on wire (272 bits), 34 bytes captured (272 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 184.171.244.140
+
+No.     Time           Source                Destination           Protocol Length Info
+     10 1.320331825    184.171.244.140       192.168.122.204       TCP      58     [TCP Retransmission] 80 → 33000 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460
+
+Frame 10: 58 bytes on wire (464 bits), 58 bytes captured (464 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 184.171.244.140, Dst: 192.168.122.204
+Transmission Control Protocol, Src Port: 80, Dst Port: 33000, Seq: 0, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     11 1.368012236    192.168.122.204       184.171.244.140       TCP      38     33000 → 80[Malformed Packet]
+
+Frame 11: 38 bytes on wire (304 bits), 38 bytes captured (304 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 184.171.244.140
+Transmission Control Protocol, Src Port: 33000, Dst Port: 80
+[Malformed Packet: TCP]
+    [Expert Info (Error/Malformed): Malformed Packet (Exception occurred)]
+
+No.     Time           Source                Destination           Protocol Length Info
+     12 3.368028499    184.171.244.140       192.168.122.204       TCP      58     [TCP Retransmission] 80 → 33000 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460
+
+Frame 12: 58 bytes on wire (464 bits), 58 bytes captured (464 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 184.171.244.140, Dst: 192.168.122.204
+Transmission Control Protocol, Src Port: 80, Dst Port: 33000, Seq: 0, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     13 3.412189905    192.168.122.204       184.171.244.140       TCP      38     33000 → 80[Malformed Packet]
+
+Frame 13: 38 bytes on wire (304 bits), 38 bytes captured (304 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 184.171.244.140
+Transmission Control Protocol, Src Port: 33000, Dst Port: 80
+[Malformed Packet: TCP]
+    [Expert Info (Error/Malformed): Malformed Packet (Exception occurred)]
+
+No.     Time           Source                Destination           Protocol Length Info
+     14 5.057250851    52:54:00:94:87:d0     52:54:00:9d:b3:14     ARP      42     Who has 192.168.122.204? Tell 192.168.122.1
+
+Frame 14: 42 bytes on wire (336 bits), 42 bytes captured (336 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Address Resolution Protocol (request)
+
+No.     Time           Source                Destination           Protocol Length Info
+     15 5.058216709    52:54:00:9d:b3:14     52:54:00:94:87:d0     ARP      42     192.168.122.204 is at 52:54:00:9d:b3:14
+
+Frame 15: 42 bytes on wire (336 bits), 42 bytes captured (336 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Address Resolution Protocol (reply)
+
+No.     Time           Source                Destination           Protocol Length Info
+     16 7.463911561    184.171.244.140       192.168.122.204       TCP      58     [TCP Retransmission] 80 → 33000 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460
+
+Frame 16: 58 bytes on wire (464 bits), 58 bytes captured (464 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 184.171.244.140, Dst: 192.168.122.204
+Transmission Control Protocol, Src Port: 80, Dst Port: 33000, Seq: 0, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     17 7.553294842    192.168.122.204       184.171.244.140       TCP      38     33000 → 80[Malformed Packet]
+
+Frame 17: 38 bytes on wire (304 bits), 38 bytes captured (304 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 184.171.244.140
+Transmission Control Protocol, Src Port: 33000, Dst Port: 80
+[Malformed Packet: TCP]
+    [Expert Info (Error/Malformed): Malformed Packet (Exception occurred)]
+
+No.     Time           Source                Destination           Protocol Length Info
+     18 15.887274574   184.171.244.140       192.168.122.204       TCP      58     [TCP Retransmission] 80 → 33000 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460
+
+Frame 18: 58 bytes on wire (464 bits), 58 bytes captured (464 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:94:87:d0 (52:54:00:94:87:d0), Dst: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14)
+Internet Protocol Version 4, Src: 184.171.244.140, Dst: 192.168.122.204
+Transmission Control Protocol, Src Port: 80, Dst Port: 33000, Seq: 0, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     19 15.952840899   192.168.122.204       184.171.244.140       TCP      38     33000 → 80[Malformed Packet]
+
+Frame 19: 38 bytes on wire (304 bits), 38 bytes captured (304 bits) on interface virbr0, id 0
+Ethernet II, Src: 52:54:00:9d:b3:14 (52:54:00:9d:b3:14), Dst: 52:54:00:94:87:d0 (52:54:00:94:87:d0)
+Internet Protocol Version 4, Src: 192.168.122.204, Dst: 184.171.244.140
+Transmission Control Protocol, Src Port: 33000, Dst Port: 80
+[Malformed Packet: TCP]
+    [Expert Info (Error/Malformed): Malformed Packet (Exception occurred)]

@@ -19,6 +19,7 @@ syscall	freemem(
 	if ((nbytes == 0) || ((uint32) blkaddr < (uint32) minheap)
 			  || ((uint32) blkaddr > (uint32) maxheap)) {
 		restore(mask);
+		kprintf("freemem_err1\n");
 		return SYSERR;
 	}
 
@@ -43,6 +44,7 @@ syscall	freemem(
 	if (((prev != &memlist) && (uint32) block < top)
 	    || ((next != NULL)	&& (uint32) block+nbytes>(uint32)next)) {
 		restore(mask);
+		kprintf("freemem_err2\n");
 		return SYSERR;
 	}
 

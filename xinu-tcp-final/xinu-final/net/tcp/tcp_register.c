@@ -66,7 +66,7 @@ int32	tcp_register (
 	wait (Tcp.tcpmutex);
 	//kprintf("tcp_reg: tomo tcpmutex\n");
 	for (i = 0; i < Ntcp; i++) {
-	        kprintf("TCB[%d]: %d\n", i, tcbtab[i].tcb_state);
+	        kprintf("TCB[%d] estado: %d\n", i, tcbtab[i].tcb_state);
 		if (tcbtab[i].tcb_state == TCB_FREE)
 			break;
 	}
